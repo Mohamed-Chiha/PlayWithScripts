@@ -1,23 +1,34 @@
 package com.example.pws.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import lombok.*;
 import java.time.Instant;
 
-
 @Data
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class Session {
-    private String id; // UUID
-    private String containerId; // Docker container id
-    private String scenarioId; // optional
-    private Instant startedAt;
-    private Instant lastActiveAt;
-    private long ttlSeconds; // e.g., 900 (15 min)
-    private Status status;
+    private String id;
+    private String containerId;
 
+    public Session(String id, String containerId) {
+        this.id = id;
+        this.containerId = containerId;
+        this.lastActiveAt = Instant.now();
+        this.ttlSeconds = 600;
+    }
 
-    public enum Status { STARTING, RUNNING, STOPPING, TERMINATED }
+    // ✅ add these fields
+    private Instant lastActiveAt = Instant.now();
+    private long ttlSeconds = 600; // default 10 minutes
+
+    public boolean isExpired() {
+        return Instant.now().isAfter(lastActiveAt.plusSeconds(ttlSeconds));
+    }
+
+    public void touch() {
+        this.lastActiveAt = Instant.now();
+    }
 }

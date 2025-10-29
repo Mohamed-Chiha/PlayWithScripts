@@ -21,7 +21,9 @@ public class DockerAdapter {
     private final DockerClient client;
 
     public DockerAdapter() {
-        var config = DefaultDockerClientConfig.createDefaultConfigBuilder().build();
+        var config = DefaultDockerClientConfig.createDefaultConfigBuilder()
+                .withDockerHost("tcp://localhost:2375")
+                .build();
 
         DockerHttpClient httpClient = new ApacheDockerHttpClient.Builder()
                 .dockerHost(config.getDockerHost())
@@ -33,6 +35,7 @@ public class DockerAdapter {
 
         this.client = DockerClientImpl.getInstance(config, httpClient);
     }
+
 
     /** Vérifie ou télécharge l'image Docker */
     public String ensureImage(String image) {
