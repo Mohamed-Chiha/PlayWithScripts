@@ -1,0 +1,10 @@
+{
+  "id": "basic-linux",
+  "title": "Linux Basics",
+  "description": "Practice common Linux commands.",
+  "steps": [
+    { "command": "ls -la", "hint": "List files with permissions." },
+    { "command": "cat /etc/os-release", "hint": "Check distro info." },
+    { "command": "apk add --no-cache curl || (apt-get update && apt-get install -y curl)", "hint": "Install curl on Alpine/Ubuntu." }
+  ]
+}
