@@ -92,7 +92,7 @@ public class TerminalWebSocket extends TextWebSocketHandler {
             }
         });
 
-        ws.getAttributes().put("terminal", new ConnectionContext(stdinPipe, callback, exec.getId(), s.getContainerId(), streamTask));
+        ws.getAttributes().put("terminal", new ConnectionContext(stdinPipe, callback, exec.getId(), streamTask));
         log.info("WebSocket {} connected to container {}", sessionId, s.getContainerId());
     }
 
@@ -108,7 +108,7 @@ public class TerminalWebSocket extends TextWebSocketHandler {
             return;
         }
 
-        if (handleResizeIfPresent(context, payload)) {
+        if (handleResizeIfPresent(context.execId(), payload)) {
             return;
         }
 
@@ -136,11 +136,7 @@ public class TerminalWebSocket extends TextWebSocketHandler {
         safeClose(session, CloseStatus.SERVER_ERROR);
     }
 
-    private boolean handleResizeIfPresent(ConnectionContext context, String payload) {
-        if (payload == null) {
-            return false;
-        }
-
+    private boolean handleResizeIfPresent(String execId, String payload) {
         String trimmed = payload.trim();
         if (!trimmed.startsWith("{")) {
             return false;
@@ -154,7 +150,10 @@ public class TerminalWebSocket extends TextWebSocketHandler {
 
             int rows = node.path("rows").asInt(0);
             int cols = node.path("cols").asInt(0);
-            docker.resizeTty(context.containerId(), rows, cols);
+            docker.getClient().execResizeCmd(execId)
+                    .withHeight(rows)
+                    .withWidth(cols)
+                    .exec();
             return true;
         } catch (Exception e) {
             log.debug("Failed to parse resize event payload: {}", payload, e);
@@ -186,7 +185,6 @@ public class TerminalWebSocket extends TextWebSocketHandler {
     private record ConnectionContext(PipedOutputStream stdin,
                                      ResultCallback<?> callback,
                                      String execId,
-                                     String containerId,
                                      CompletableFuture<?> streamTask) implements AutoCloseable {
         @Override
         public void close() {
