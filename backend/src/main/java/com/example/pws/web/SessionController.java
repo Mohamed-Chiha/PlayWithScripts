@@ -6,6 +6,8 @@ import com.example.pws.service.SessionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
+
 @RestController
 @RequestMapping("/api/session")
 @RequiredArgsConstructor
@@ -24,6 +26,11 @@ public class SessionController {
 
         // 3. Return the session info to the client
         return session;
+    }
+
+    @GetMapping("/list")
+    public Collection<Session> list() {
+        return sessions.list();
     }
 
     @DeleteMapping("/{id}")

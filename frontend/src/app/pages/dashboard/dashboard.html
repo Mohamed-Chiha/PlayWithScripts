@@ -1,0 +1,16 @@
+<app-navbar (newSession)="createSession()"></app-navbar>
+<div class="grid grid-cols-4 gap-4 h-[calc(100vh-64px)] bg-gray-100">
+  <div class="col-span-3 p-4">
+    <ng-container *ngIf="currentSession; else noSession">
+      <app-terminal [sessionId]="currentSession.id"></app-terminal>
+    </ng-container>
+    <ng-template #noSession>
+      <div class="text-gray-500 text-center mt-10">
+        No session selected. Create one from the navbar.
+      </div>
+    </ng-template>
+  </div>
+  <div class="col-span-1 p-4 bg-white border-l shadow-sm">
+    <app-session-list (select)="currentSession = $event"></app-session-list>
+  </div>
+</div>

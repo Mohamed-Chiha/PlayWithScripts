@@ -1,0 +1,11 @@
+<h2 class="text-lg font-semibold mb-3">Active Sessions</h2>
+<ul>
+  <li
+    *ngFor="let s of sessions"
+    (click)="select.emit(s)"
+    class="cursor-pointer hover:bg-gray-100 p-2 rounded border mb-2"
+  >
+    <p class="font-mono text-sm">{{ s.id }}</p>
+    <p class="text-xs text-gray-500">{{ s.containerId | slice : 0 : 12 }}</p>
+  </li>
+</ul>
