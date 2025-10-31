@@ -77,24 +77,28 @@ public class TerminalWebSocketHandler extends TextWebSocketHandler {
         log.info("WebSocket connected to container session {}", sessionId);
     }
 
+
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        PipedOutputStream stdin = (PipedOutputStream) session.getAttributes().get("stdin");
-        if (stdin == null) {
+        String payload = message.getPayload();
+        if (payload == null || payload.isEmpty()) return;
+
+        // 🧠 Ignore heartbeats from the client
+        if ("__ping__".equals(payload)) {
             return;
         }
 
-        String payload = message.getPayload();
+        PipedOutputStream stdin = (PipedOutputStream) session.getAttributes().get("stdin");
+        if (stdin == null) return;
 
-        // 🟡 Case 1: user actually pressed Enter in xterm
         if ("\r".equals(payload) || "\n".equals(payload)) {
             stdin.write("\n".getBytes());
         } else {
-            // 🟢 Case 2: real characters, we forward AS IS
             stdin.write(payload.getBytes());
         }
 
         stdin.flush();
     }
+
 
 }
