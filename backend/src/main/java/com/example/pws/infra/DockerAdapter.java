@@ -101,4 +101,28 @@ public class DockerAdapter {
     public DockerClient getClient() {
         return client;
     }
+
+    /** Ajuste la taille du TTY pour un conteneur donné */
+    public void resizeTty(String containerId, int rows, int cols) {
+        if (containerId == null || containerId.isBlank()) {
+            return;
+        }
+
+        if (rows <= 0 && cols <= 0) {
+            return;
+        }
+
+        try {
+            var cmd = client.resizeCmd(containerId);
+            if (rows > 0) {
+                cmd.withHeight(rows);
+            }
+            if (cols > 0) {
+                cmd.withWidth(cols);
+            }
+            cmd.exec();
+        } catch (Exception e) {
+            log.debug("Unable to resize TTY for container {}", containerId, e);
+        }
+    }
 }
