@@ -62,4 +62,9 @@ export class TerminalComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy() {
     this.socket?.close();
   }
+
+  onStopSession() {
+    // Implement your stop logic here if needed
+    console.log('Stopping session:', this.sessionId);
+  }
 }

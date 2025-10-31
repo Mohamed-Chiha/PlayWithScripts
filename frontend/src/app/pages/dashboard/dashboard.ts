@@ -7,11 +7,18 @@ import { SessionService } from '../../services/session';
 import { NavbarComponent } from '../../components/navbar/navbar';
 import { TerminalComponent } from '../../components/terminal/terminal';
 import { SessionListComponent } from '../../components/session-list/session-list';
+import { SidebarComponent } from '../../components/sidebar/sidebar';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true, // ✅ important for Angular 17+
-  imports: [CommonModule, NavbarComponent, TerminalComponent, SessionListComponent],
+  imports: [
+    CommonModule,
+    NavbarComponent,
+    TerminalComponent,
+    SessionListComponent,
+    SidebarComponent,
+  ],
   templateUrl: './dashboard.html',
 })
 export class DashboardComponent {

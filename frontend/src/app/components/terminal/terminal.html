@@ -1,1 +1,19 @@
-<div #terminalContainer class="w-full h-[60vh] bg-black rounded-lg shadow-inner"></div>
+<!-- src/app/components/terminal/terminal.html -->
+<div class="bg-gray-900 rounded-2xl shadow-md border border-gray-800 overflow-hidden">
+  <!-- Header -->
+  <div class="flex items-center justify-between px-4 py-2 bg-gray-800 border-b border-gray-700">
+    <span class="text-xs text-gray-300 font-mono"> Session: {{ sessionId || '—' }} </span>
+    <button
+      class="text-xs text-gray-400 hover:text-red-400 transition-all duration-200"
+      (click)="onStopSession()"
+    >
+      Stop
+    </button>
+  </div>
+
+  <!-- Terminal body -->
+  <div
+    #terminalContainer
+    class="w-full h-[65vh] text-white font-mono text-sm p-3 overflow-hidden"
+  ></div>
+</div>

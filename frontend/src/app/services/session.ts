@@ -8,6 +8,7 @@ export interface Session {
   lastActiveAt: string;
   ttlSeconds: number;
   expired: boolean;
+  status?: string; // ✅ Optional field
 }
 
 @Injectable({ providedIn: 'root' })

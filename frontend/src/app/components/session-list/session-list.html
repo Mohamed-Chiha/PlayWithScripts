@@ -1,11 +1,26 @@
-<h2 class="text-lg font-semibold mb-3">Active Sessions</h2>
-<ul>
-  <li
-    *ngFor="let s of sessions"
-    (click)="select.emit(s)"
-    class="cursor-pointer hover:bg-gray-100 p-2 rounded border mb-2"
-  >
-    <p class="font-mono text-sm">{{ s.id }}</p>
-    <p class="text-xs text-gray-500">{{ s.containerId | slice : 0 : 12 }}</p>
-  </li>
-</ul>
+<!-- src/app/components/session-list/session-list.html -->
+<div class="space-y-3">
+  <h2 class="text-lg font-semibold text-gray-700 mb-2">Active Sessions</h2>
+
+  <div *ngIf="sessions?.length; else empty" class="space-y-2">
+    <div
+      *ngFor="let s of sessions"
+      (click)="select.emit(s)"
+      class="cursor-pointer bg-white border border-gray-200 rounded-xl p-3 hover:shadow-md transition-all duration-200 ease-in-out-soft"
+    >
+      <div class="flex justify-between items-center">
+        <p class="font-mono text-sm text-gray-800 truncate">
+          {{ s.id }}
+        </p>
+        <span class="text-xs text-violet-600 bg-violet-50 px-2 py-1 rounded-md">
+          {{ s.status || 'Active' }}
+        </span>
+      </div>
+      <p class="text-xs text-gray-500 mt-1">Container ID: {{ s.containerId | slice : 0 : 12 }}</p>
+    </div>
+  </div>
+
+  <ng-template #empty>
+    <p class="text-gray-400 text-sm italic">No active sessions.</p>
+  </ng-template>
+</div>

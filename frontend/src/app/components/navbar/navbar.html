@@ -1,6 +1,19 @@
-<nav class="bg-gray-900 text-white px-6 py-3 flex items-center justify-between">
-  <div class="text-lg font-semibold">PlayWithScripts</div>
-  <button (click)="onNewSession()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded">
-    + New Session
-  </button>
-</nav>
+<!-- src/app/components/navbar/navbar.html -->
+<header
+  class="flex items-center justify-between px-6 py-3 bg-white border-b border-gray-200 shadow-sm"
+>
+  <!-- Left: app name -->
+  <div class="flex items-center gap-2">
+    <h1 class="text-lg font-semibold text-gray-800">PlayWithScripts</h1>
+  </div>
+
+  <!-- Right: actions -->
+  <div class="flex items-center gap-3">
+    <button
+      (click)="onNewSession()"
+      class="bg-violet-600 hover:bg-violet-700 text-white font-medium px-4 py-2 rounded-lg shadow-md transition-all duration-200 ease-in-out-soft"
+    >
+      + New Session
+    </button>
+  </div>
+</header>

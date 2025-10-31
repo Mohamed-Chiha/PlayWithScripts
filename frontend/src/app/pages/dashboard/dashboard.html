@@ -1,16 +1,34 @@
-<app-navbar (newSession)="createSession()"></app-navbar>
-<div class="grid grid-cols-4 gap-4 h-[calc(100vh-64px)] bg-gray-100">
-  <div class="col-span-3 p-4">
-    <ng-container *ngIf="currentSession; else noSession">
-      <app-terminal [sessionId]="currentSession.id"></app-terminal>
-    </ng-container>
-    <ng-template #noSession>
-      <div class="text-gray-500 text-center mt-10">
-        No session selected. Create one from the navbar.
+<!-- src/app/pages/dashboard/dashboard.html -->
+<div class="flex h-screen bg-gray-50 text-gray-800">
+  <!-- Sidebar -->
+  <app-sidebar></app-sidebar>
+
+  <!-- Main content area -->
+  <div class="flex-1 flex flex-col ml-64">
+    <!-- Top Navbar -->
+    <app-navbar (newSession)="createSession()" class="z-10"></app-navbar>
+
+    <!-- Main Workspace -->
+    <div class="flex flex-1 overflow-hidden">
+      <!-- Terminal Section -->
+      <div class="flex-1 p-6 overflow-auto">
+        <ng-container *ngIf="currentSession; else noSession">
+          <div class="bg-white shadow-md rounded-2xl p-4 h-full">
+            <app-terminal [sessionId]="currentSession.id"></app-terminal>
+          </div>
+        </ng-container>
+        <ng-template #noSession>
+          <div class="flex items-center justify-center h-full text-gray-400">
+            No session selected. Create one from the navbar.
+          </div>
+        </ng-template>
       </div>
-    </ng-template>
-  </div>
-  <div class="col-span-1 p-4 bg-white border-l shadow-sm">
-    <app-session-list (select)="currentSession = $event"></app-session-list>
+
+      <!-- Session List -->
+      <div class="w-80 p-4 border-l border-gray-200 bg-white overflow-auto shadow-inner">
+        <h2 class="text-lg font-semibold text-gray-700 mb-3">Active Sessions</h2>
+        <app-session-list (select)="currentSession = $event"></app-session-list>
+      </div>
+    </div>
   </div>
 </div>

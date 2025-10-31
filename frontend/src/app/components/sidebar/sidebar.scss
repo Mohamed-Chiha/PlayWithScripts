@@ -1,0 +1,13 @@
+/* src/app/components/sidebar/sidebar.scss */
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+a.active {
+  background-color: theme('colors.violet.100');
+  color: theme('colors.violet.700');
+  border-left: 4px solid theme('colors.violet.600');
+  padding-left: 0.75rem;
+}
