@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="0720b074-e998-4f93-933c-ffd52d714fc6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/pws/web/TerminalWebSocketHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/pws/web/TerminalWebSocketHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,7 +105,7 @@
       <workItem from="1761750133077" duration="873000" />
       <workItem from="1761759599353" duration="633000" />
       <workItem from="1761868053051" duration="2261000" />
-      <workItem from="1761904080798" duration="2694000" />
+      <workItem from="1761904080798" duration="3911000" />
     </task>
     <servers />
   </component>
